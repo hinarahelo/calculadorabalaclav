@@ -82,13 +82,13 @@
     </section>
 
     <section class="totais">
-      <div class="card destaque">
-        <h3>Total s/ parceria</h3>
+      <div class="card destaque total-card">
+        <h3>Total da venda sem parceria</h3>
         <p id="totalSem">R$ 0</p>
       </div>
 
-      <div class="card destaque">
-        <h3>Total c/ parceria</h3>
+      <div class="card destaque total-card">
+        <h3>Total da venda com parceria</h3>
         <p id="totalCom">R$ 0</p>
       </div>
     </section>
@@ -96,28 +96,63 @@
     <section class="lucros">
       <div class="section-header">
         <h2>LUCROS</h2>
+        <p class="section-text">
+          Veja abaixo quanto fica para cada lado em cada tipo de venda.
+        </p>
       </div>
 
-      <div class="grid">
-        <div class="card">
-          <h4>Pessoal 80%</h4>
-          <p id="pessoalSem">R$ 0</p>
-        </div>
+      <div class="lucro-layout">
+        <article class="lucro-box">
+          <div class="lucro-box-header">
+            <span class="lucro-chip">SEM PARCERIA</span>
+            <h3>Divisão da venda sem parceria</h3>
+            <p>Baseado no total sem parceria calculado acima.</p>
+          </div>
 
-        <div class="card">
-          <h4>Balaclav 20%</h4>
-          <p id="balaclavSem">R$ 0</p>
-        </div>
+          <div class="lucro-cards">
+            <div class="lucro-card pessoal">
+              <div class="lucro-label">
+                <span class="lucro-percent">80%</span>
+                <h4>Pessoal</h4>
+              </div>
+              <p id="pessoalSem">R$ 0</p>
+            </div>
 
-        <div class="card">
-          <h4>Pessoal c/ parceria</h4>
-          <p id="pessoalCom">R$ 0</p>
-        </div>
+            <div class="lucro-card balaclav">
+              <div class="lucro-label">
+                <span class="lucro-percent">20%</span>
+                <h4>Balaclav</h4>
+              </div>
+              <p id="balaclavSem">R$ 0</p>
+            </div>
+          </div>
+        </article>
 
-        <div class="card">
-          <h4>Balaclav</h4>
-          <p id="balaclavCom">R$ 0</p>
-        </div>
+        <article class="lucro-box">
+          <div class="lucro-box-header">
+            <span class="lucro-chip">COM PARCERIA</span>
+            <h3>Divisão da venda com parceria</h3>
+            <p>Baseado no total com parceria calculado acima.</p>
+          </div>
+
+          <div class="lucro-cards">
+            <div class="lucro-card pessoal">
+              <div class="lucro-label">
+                <span class="lucro-percent">80%</span>
+                <h4>Pessoal</h4>
+              </div>
+              <p id="pessoalCom">R$ 0</p>
+            </div>
+
+            <div class="lucro-card balaclav">
+              <div class="lucro-label">
+                <span class="lucro-percent">20%</span>
+                <h4>Balaclav</h4>
+              </div>
+              <p id="balaclavCom">R$ 0</p>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
   </main>

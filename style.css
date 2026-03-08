@@ -39,6 +39,8 @@ body {
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  opacity: 0.9;
+  mix-blend-mode: screen;
 }
 
 #particles canvas {

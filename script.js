@@ -1,116 +1,76 @@
-(() => {
-  "use strict";
+const produtos = [
 
-  const PRODUCTS = [
-    { name: "FAJUTA", priceWithoutPartnership: 3000, priceWithPartnership: 2500 },
-    { name: "COMUM", priceWithoutPartnership: 4000, priceWithPartnership: 3500 },
-    { name: "INCOMUM", priceWithoutPartnership: 6000, priceWithPartnership: 5500 },
-    { name: "RARO", priceWithoutPartnership: 13000, priceWithPartnership: 12000 },
-    { name: "ESPECIAL", priceWithoutPartnership: 26000, priceWithPartnership: 25000 },
-    { name: "LUVA", priceWithoutPartnership: 1300, priceWithPartnership: 1200 },
-    { name: "LIXA", priceWithoutPartnership: 1200, priceWithPartnership: 800 }
-  ];
+{nome:"FAJUTA", sem:3000, com:2500},
+{nome:"COMUM", sem:4000, com:3500},
+{nome:"INCOMUM", sem:6000, com:5500},
+{nome:"RARO", sem:13000, com:12000},
+{nome:"ESPECIAL", sem:26000, com:25000},
+{nome:"LUVA", sem:1300, com:1200},
+{nome:"LIXA", sem:1200, com:800},
 
-  const PERSONAL_SHARE = 0.8;
-  const BALACLAV_SHARE = 0.2;
+];
 
-  const body = document.getElementById("calculator-body");
+const tabela = document.getElementById("tabela");
 
-  const totalWithoutElement = document.getElementById("total-sem-parceria");
-  const totalWithElement = document.getElementById("total-com-parceria");
+produtos.forEach((p,i)=>{
 
-  const personalWithoutElement = document.getElementById("pessoal-sem-parceria");
-  const balaclavWithoutElement = document.getElementById("balaclav-sem-parceria");
+const tr=document.createElement("tr");
 
-  const personalWithElement = document.getElementById("pessoal-com-parceria");
-  const balaclavWithElement = document.getElementById("balaclav-com-parceria");
+tr.innerHTML=`
 
-  const currencyFormatter = new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-    maximumFractionDigits: 0
-  });
+<td>${p.nome}</td>
+<td>R$ ${p.sem.toLocaleString()}</td>
+<td>R$ ${p.com.toLocaleString()}</td>
 
-  const formatCurrency = (value) => currencyFormatter.format(value);
+<td>
+<input type="number" min="0" value="0" data-index="${i}">
+</td>
 
-  const sanitizeQuantity = (value) => {
-    const parsed = Number.parseInt(value, 10);
-    return Number.isNaN(parsed) || parsed < 0 ? 0 : parsed;
-  };
+<td id="sem${i}">R$ 0</td>
+<td id="com${i}">R$ 0</td>
 
-  const rows = PRODUCTS.map((product, index) => {
-    const row = document.createElement("tr");
+`;
 
-    row.innerHTML = `
-      <td class="col-type">${product.name}</td>
-      <td class="money">${formatCurrency(product.priceWithoutPartnership)}</td>
-      <td class="money">${formatCurrency(product.priceWithPartnership)}</td>
-      <td>
-        <input
-          class="qty-input"
-          type="number"
-          min="0"
-          step="1"
-          inputmode="numeric"
-          value="0"
-          aria-label="Quantidade de ${product.name}"
-          data-index="${index}"
-        />
-      </td>
-      <td class="money total-cell" data-total-without>${formatCurrency(0)}</td>
-      <td class="money total-cell" data-total-with>${formatCurrency(0)}</td>
-    `;
+tabela.appendChild(tr);
 
-    body.appendChild(row);
+});
 
-    return {
-      input: row.querySelector(".qty-input"),
-      totalWithoutCell: row.querySelector("[data-total-without]"),
-      totalWithCell: row.querySelector("[data-total-with]")
-    };
-  });
+document.querySelectorAll("input").forEach(input=>{
 
-  const calculate = () => {
-    let totalWithout = 0;
-    let totalWith = 0;
+input.addEventListener("input",calcular);
 
-    for (let index = 0; index < PRODUCTS.length; index += 1) {
-      const product = PRODUCTS[index];
-      const row = rows[index];
+});
 
-      const quantity = sanitizeQuantity(row.input.value);
+function calcular(){
 
-      if (row.input.value !== String(quantity)) {
-        row.input.value = quantity;
-      }
+let totalSem=0;
+let totalCom=0;
 
-      const subtotalWithout = quantity * product.priceWithoutPartnership;
-      const subtotalWith = quantity * product.priceWithPartnership;
+document.querySelectorAll("input").forEach(input=>{
 
-      row.totalWithoutCell.textContent = formatCurrency(subtotalWithout);
-      row.totalWithCell.textContent = formatCurrency(subtotalWith);
+const i=input.dataset.index;
+const q=parseInt(input.value)||0;
 
-      totalWithout += subtotalWithout;
-      totalWith += subtotalWith;
-    }
+const produto=produtos[i];
 
-    totalWithoutElement.textContent = formatCurrency(totalWithout);
-    totalWithElement.textContent = formatCurrency(totalWith);
+const sem=q*produto.sem;
+const com=q*produto.com;
 
-    personalWithoutElement.textContent = formatCurrency(totalWithout * PERSONAL_SHARE);
-    balaclavWithoutElement.textContent = formatCurrency(totalWithout * BALACLAV_SHARE);
+document.getElementById("sem"+i).innerText="R$ "+sem.toLocaleString();
+document.getElementById("com"+i).innerText="R$ "+com.toLocaleString();
 
-    personalWithElement.textContent = formatCurrency(totalWith * PERSONAL_SHARE);
-    balaclavWithElement.textContent = formatCurrency(totalWith * BALACLAV_SHARE);
-  };
+totalSem+=sem;
+totalCom+=com;
 
-  body.addEventListener("input", (event) => {
-    if (!event.target.classList.contains("qty-input")) {
-      return;
-    }
+});
 
-    calculate();
-  });
+document.getElementById("totalSem").innerText="R$ "+totalSem.toLocaleString();
+document.getElementById("totalCom").innerText="R$ "+totalCom.toLocaleString();
 
-  calculate();
-})();
+document.getElementById("pessoalSem").innerText="R$ "+(totalSem*0.8).toLocaleString();
+document.getElementById("balaclavSem").innerText="R$ "+(totalSem*0.2).toLocaleString();
+
+document.getElementById("pessoalCom").innerText="R$ "+(totalCom*0.8).toLocaleString();
+document.getElementById("balaclavCom").innerText="R$ "+(totalCom*0.2).toLocaleString();
+
+}

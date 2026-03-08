@@ -30,36 +30,27 @@ function nomeProdutoHTML(produto) {
 }
 
 produtos.forEach((produto, index) => {
-  const tr = document.createElement("tr");
-
-  tr.innerHTML = `
+  const linha = document.createElement("tr");
+  linha.innerHTML = `
     <td>${nomeProdutoHTML(produto)}</td>
     <td>${formatBRL(produto.sem)}</td>
     <td>${formatBRL(produto.com)}</td>
     <td>
-      <input
-        type="number"
-        min="0"
-        value="0"
-        data-index="${index}"
-        data-group="desktop"
-      >
+      <input type="number" min="0" value="0" data-index="${index}" data-group="desktop">
     </td>
     <td id="desktopSem${index}">${formatBRL(0)}</td>
     <td id="desktopCom${index}">${formatBRL(0)}</td>
   `;
+  tabelaDesktop.appendChild(linha);
 
-  tabelaDesktop.appendChild(tr);
-
-  const mobileCard = document.createElement("div");
-  mobileCard.className = "mobile-item";
-
-  mobileCard.innerHTML = `
+  const card = document.createElement("div");
+  card.className = "mobile-item";
+  card.innerHTML = `
     <div class="mobile-top">
       ${nomeProdutoHTML(produto)}
     </div>
 
-    <div class="mobile-prices">
+    <div class="mobile-grid">
       <div class="mobile-field">
         <label>Preço s/ parceria</label>
         <strong>${formatBRL(produto.sem)}</strong>
@@ -73,17 +64,10 @@ produtos.forEach((produto, index) => {
 
     <div class="mobile-qty">
       <label for="mobileInput${index}">Quantidade</label>
-      <input
-        id="mobileInput${index}"
-        type="number"
-        min="0"
-        value="0"
-        data-index="${index}"
-        data-group="mobile"
-      >
+      <input id="mobileInput${index}" type="number" min="0" value="0" data-index="${index}" data-group="mobile">
     </div>
 
-    <div class="mobile-totals">
+    <div class="mobile-grid">
       <div class="mobile-field">
         <label>Total s/ parceria</label>
         <span id="mobileSem${index}">${formatBRL(0)}</span>
@@ -95,13 +79,11 @@ produtos.forEach((produto, index) => {
       </div>
     </div>
   `;
-
-  tabelaMobile.appendChild(mobileCard);
+  tabelaMobile.appendChild(card);
 });
 
 function sincronizarInputs(index, valor, origem) {
-  const seletor = `input[data-index="${index}"]`;
-  document.querySelectorAll(seletor).forEach((input) => {
+  document.querySelectorAll(`input[data-index="${index}"]`).forEach((input) => {
     if (input.dataset.group !== origem) {
       input.value = valor;
     }
@@ -113,12 +95,10 @@ function calcular() {
   let totalCom = 0;
 
   produtos.forEach((produto, index) => {
-    const inputReferencia = document.querySelector(
-      `input[data-index="${index}"][data-group="desktop"]`
-    ) || document.querySelector(`input[data-index="${index}"][data-group="mobile"]`);
+    const input = document.querySelector(`input[data-index="${index}"][data-group="desktop"]`)
+      || document.querySelector(`input[data-index="${index}"][data-group="mobile"]`);
 
-    const qtd = Math.max(0, parseInt(inputReferencia.value, 10) || 0);
-
+    const qtd = Math.max(0, parseInt(input.value, 10) || 0);
     const valorSem = qtd * produto.sem;
     const valorCom = qtd * produto.com;
 
@@ -138,23 +118,21 @@ function calcular() {
 
   document.getElementById("totalSem").textContent = formatBRL(totalSem);
   document.getElementById("totalCom").textContent = formatBRL(totalCom);
-
   document.getElementById("pessoalSem").textContent = formatBRL(totalSem * 0.8);
   document.getElementById("balaclavSem").textContent = formatBRL(totalSem * 0.2);
-
   document.getElementById("pessoalCom").textContent = formatBRL(totalCom * 0.8);
   document.getElementById("balaclavCom").textContent = formatBRL(totalCom * 0.2);
 }
 
 document.addEventListener("input", (event) => {
-  if (event.target.matches('input[type="number"][data-index]')) {
-    const index = event.target.dataset.index;
-    const valor = Math.max(0, parseInt(event.target.value, 10) || 0);
+  if (!event.target.matches('input[type="number"][data-index]')) return;
 
-    event.target.value = valor;
-    sincronizarInputs(index, valor, event.target.dataset.group);
-    calcular();
-  }
+  const index = event.target.dataset.index;
+  const valor = Math.max(0, parseInt(event.target.value, 10) || 0);
+
+  event.target.value = valor;
+  sincronizarInputs(index, valor, event.target.dataset.group);
+  calcular();
 });
 
 calcular();

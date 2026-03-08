@@ -2,7 +2,6 @@
   --bg: #050008;
   --panel: rgba(26, 0, 46, 0.78);
   --panel-soft: rgba(18, 0, 32, 0.78);
-  --panel-strong: rgba(37, 0, 68, 0.82);
   --border: rgba(168, 85, 247, 0.22);
   --border-strong: rgba(168, 85, 247, 0.38);
   --text: #ffffff;
@@ -10,7 +9,6 @@
   --purple: #d8b4fe;
   --purple-strong: #a855f7;
   --shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
-  --glow: 0 0 26px rgba(168, 85, 247, 0.18);
   --radius: 20px;
   --max-width: 1120px;
 }
@@ -163,7 +161,7 @@ body {
 
 table {
   width: 100%;
-  min-width: 860px;
+  min-width: 720px;
   border-collapse: collapse;
 }
 

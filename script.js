@@ -1,166 +1,167 @@
-const particlesRoot = document.getElementById("particles");
+const produtos = [
+  { nome: "FAJUTO", cor: "Azul", classe: "azul", sem: 3000, com: 2500 },
+  { nome: "COMUM", cor: "Branco", classe: "branco", sem: 4000, com: 3500 },
+  { nome: "INCOMUM", cor: "Verde", classe: "verde", sem: 6000, com: 5500 },
+  { nome: "RARO", cor: "Vermelho", classe: "vermelho", sem: 13000, com: 12000 },
+  { nome: "ESPECIAL", cor: "Preto", classe: "preto", sem: 26000, com: 25000 },
+  { nome: "LUVA", cor: "", classe: "neutro", sem: 1300, com: 1200 },
+  { nome: "LIXA", cor: "", classe: "neutro", sem: 1200, com: 800 }
+];
 
-if (particlesRoot) {
-  const canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d");
+const desktopTableBody = document.getElementById("desktopTableBody");
+const mobileList = document.getElementById("mobileList");
 
-  particlesRoot.appendChild(canvas);
+const totalSemEl = document.getElementById("totalSem");
+const totalComEl = document.getElementById("totalCom");
+const pessoalSemEl = document.getElementById("pessoalSem");
+const balaclavSemEl = document.getElementById("balaclavSem");
+const pessoalComEl = document.getElementById("pessoalCom");
+const balaclavComEl = document.getElementById("balaclavCom");
 
-  const PARTICLE_COUNT = 90;
-  const particles = [];
-  let animationId = null;
+function formatBRL(valor) {
+  return `R$ ${valor.toLocaleString("pt-BR")}`;
+}
 
-  function resizeCanvas() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.floor(window.innerWidth * dpr);
-    canvas.height = Math.floor(window.innerHeight * dpr);
-    canvas.style.width = `${window.innerWidth}px`;
-    canvas.style.height = `${window.innerHeight}px`;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
+function productNameHTML(produto) {
+  const cor = produto.cor
+    ? `<span class="product-name__color">(${produto.cor})</span>`
+    : "";
 
-  function random(min, max) {
-    return Math.random() * (max - min) + min;
-  }
+  return `
+    <span class="product-name">
+      <span class="usb ${produto.classe}"></span>
+      <span>${produto.nome}</span>
+      ${cor}
+    </span>
+  `;
+}
 
-  function createParticle() {
-    return {
-      x: random(0, window.innerWidth),
-      y: random(0, window.innerHeight),
-      size: random(1, 3.2),
-      speedX: random(-0.18, 0.18),
-      speedY: random(-0.22, -0.04),
-      alpha: random(0.2, 0.9),
-      alphaSpeed: random(0.003, 0.012),
-      glow: random(8, 22)
-    };
-  }
+function criarDesktop() {
+  if (!desktopTableBody) return;
 
-  function createParticles() {
-    particles.length = 0;
-    const isMobile = window.innerWidth < 768;
-    const total = isMobile ? 55 : PARTICLE_COUNT;
+  desktopTableBody.innerHTML = "";
 
-    for (let i = 0; i < total; i += 1) {
-      particles.push(createParticle());
+  produtos.forEach((produto, index) => {
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+      <td>${productNameHTML(produto)}</td>
+      <td>${formatBRL(produto.sem)}</td>
+      <td>${formatBRL(produto.com)}</td>
+      <td>
+        <input
+          type="number"
+          min="0"
+          step="1"
+          value="0"
+          data-index="${index}"
+          data-group="desktop"
+        >
+      </td>
+    `;
+
+    desktopTableBody.appendChild(tr);
+  });
+}
+
+function criarMobile() {
+  if (!mobileList) return;
+
+  mobileList.innerHTML = "";
+
+  produtos.forEach((produto, index) => {
+    const card = document.createElement("div");
+    card.className = "mobile-card";
+
+    card.innerHTML = `
+      <div class="mobile-card__top">
+        ${productNameHTML(produto)}
+      </div>
+
+      <div class="mobile-card__grid">
+        <div class="mobile-field">
+          <label>Preço s/ parceria</label>
+          <strong>${formatBRL(produto.sem)}</strong>
+        </div>
+
+        <div class="mobile-field">
+          <label>Preço c/ parceria</label>
+          <strong>${formatBRL(produto.com)}</strong>
+        </div>
+      </div>
+
+      <div class="mobile-qty">
+        <label for="mobileInput${index}">Quantidade</label>
+        <input
+          id="mobileInput${index}"
+          type="number"
+          min="0"
+          step="1"
+          value="0"
+          data-index="${index}"
+          data-group="mobile"
+        >
+      </div>
+    `;
+
+    mobileList.appendChild(card);
+  });
+}
+
+function getInputsByIndex(index) {
+  return document.querySelectorAll(`input[data-index="${index}"]`);
+}
+
+function sincronizarInputs(index, valor, origem) {
+  getInputsByIndex(index).forEach((input) => {
+    if (input.dataset.group !== origem) {
+      input.value = valor;
     }
-  }
+  });
+}
 
-  function updateParticle(particle) {
-    particle.x += particle.speedX;
-    particle.y += particle.speedY;
+function getQuantidade(index) {
+  const inputs = getInputsByIndex(index);
+  if (!inputs.length) return 0;
 
-    particle.alpha += particle.alphaSpeed;
+  const valor = parseInt(inputs[0].value, 10) || 0;
+  return Math.max(0, valor);
+}
 
-    if (particle.alpha >= 1 || particle.alpha <= 0.15) {
-      particle.alphaSpeed *= -1;
-    }
+function calcular() {
+  let totalSem = 0;
+  let totalCom = 0;
 
-    if (particle.y < -20) {
-      particle.y = window.innerHeight + 20;
-      particle.x = random(0, window.innerWidth);
-    }
+  produtos.forEach((produto, index) => {
+    const quantidade = getQuantidade(index);
 
-    if (particle.x < -20) {
-      particle.x = window.innerWidth + 20;
-    }
-
-    if (particle.x > window.innerWidth + 20) {
-      particle.x = -20;
-    }
-  }
-
-  function drawParticle(particle) {
-    ctx.save();
-
-    ctx.globalAlpha = particle.alpha;
-    ctx.shadowBlur = particle.glow;
-    ctx.shadowColor = "#c084fc";
-    ctx.fillStyle = "#a855f7";
-
-    ctx.beginPath();
-    ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.restore();
-  }
-
-  function drawLinks() {
-    for (let i = 0; i < particles.length; i += 1) {
-      for (let j = i + 1; j < particles.length; j += 1) {
-        const a = particles[i];
-        const b = particles[j];
-
-        const dx = a.x - b.x;
-        const dy = a.y - b.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < 110) {
-          const opacity = (1 - distance / 110) * 0.14;
-
-          ctx.save();
-          ctx.globalAlpha = opacity;
-          ctx.strokeStyle = "#a855f7";
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
-          ctx.restore();
-        }
-      }
-    }
-  }
-
-  function drawBackgroundGlow() {
-    const gradient = ctx.createRadialGradient(
-      window.innerWidth * 0.5,
-      window.innerHeight * 0.25,
-      0,
-      window.innerWidth * 0.5,
-      window.innerHeight * 0.25,
-      window.innerWidth * 0.45
-    );
-
-    gradient.addColorStop(0, "rgba(168,85,247,0.08)");
-    gradient.addColorStop(1, "rgba(168,85,247,0)");
-
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-  }
-
-  function animate() {
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-    drawBackgroundGlow();
-
-    for (let i = 0; i < particles.length; i += 1) {
-      updateParticle(particles[i]);
-      drawParticle(particles[i]);
-    }
-
-    drawLinks();
-
-    animationId = requestAnimationFrame(animate);
-  }
-
-  function setup() {
-    resizeCanvas();
-    createParticles();
-
-    if (animationId) {
-      cancelAnimationFrame(animationId);
-    }
-
-    animate();
-  }
-
-  let resizeTimer = null;
-
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(setup, 120);
+    totalSem += quantidade * produto.sem;
+    totalCom += quantidade * produto.com;
   });
 
-  setup();
+  if (totalSemEl) totalSemEl.textContent = formatBRL(totalSem);
+  if (totalComEl) totalComEl.textContent = formatBRL(totalCom);
+
+  if (pessoalSemEl) pessoalSemEl.textContent = formatBRL(totalSem * 0.8);
+  if (balaclavSemEl) balaclavSemEl.textContent = formatBRL(totalSem * 0.2);
+
+  if (pessoalComEl) pessoalComEl.textContent = formatBRL(totalCom * 0.8);
+  if (balaclavComEl) balaclavComEl.textContent = formatBRL(totalCom * 0.2);
 }
+
+document.addEventListener("input", (event) => {
+  if (!event.target.matches('input[type="number"][data-index]')) {
+    return;
+  }
+
+  const index = event.target.dataset.index;
+  const valor = Math.max(0, parseInt(event.target.value, 10) || 0);
+
+  event.target.value = valor;
+  sincronizarInputs(index, valor, event.target.dataset.group);
+  calcular();
+});
+
+criarDesktop();
+criarMobile();
+calcular();

@@ -1,88 +1,113 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="description" content="Calculadora Balaclav com os mesmos valores, nomes e funcionalidades." />
-  <meta name="theme-color" content="#0b1120" />
-  <title>Calculadora Balaclav</title>
-  <link rel="stylesheet" href="styles.css" />
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Balaclav | Calculadora</title>
+
+<link rel="stylesheet" href="styles.css">
+
 </head>
+
 <body>
-  <main class="app">
-    <section class="shell">
-      <header class="header">
-        <div>
-          <p class="eyebrow">GitHub Pages</p>
-          <h1>Calculadora Balaclav</h1>
-          <p class="subtitle">
-            Mesmos nomes, mesmos valores e mesmas funcionalidades da calculadora original,
-            com visual limpo e otimizado para celular e PC.
-          </p>
-        </div>
-      </header>
 
-      <div class="content">
-        <section class="table-wrap" aria-label="Tabela da calculadora">
-          <table>
-            <thead>
-              <tr>
-                <th>Tipo</th>
-                <th>Preço s/ parceria</th>
-                <th>Preço c/ parceria</th>
-                <th>Quantidade</th>
-                <th>Total s/ parceria</th>
-                <th>Total c/ parceria</th>
-              </tr>
-            </thead>
-            <tbody id="calculator-body"></tbody>
-          </table>
-        </section>
+<div class="background"></div>
 
-        <section class="summary-grid" aria-label="Totais">
-          <article class="card card-highlight">
-            <span class="card-label">Total s/ parceria</span>
-            <strong class="card-value" id="total-sem-parceria">R$ 0</strong>
-          </article>
+<div class="container">
 
-          <article class="card card-highlight">
-            <span class="card-label">Total c/ parceria</span>
-            <strong class="card-value" id="total-com-parceria">R$ 0</strong>
-          </article>
-        </section>
+<header class="header">
 
-        <section class="profits" aria-label="Lucros">
-          <div class="section-head">
-            <h2>Lucros</h2>
-            <p>Divisão mantida em 80% para pessoal e 20% para Balaclav.</p>
-          </div>
+<h1 class="logo">BALACLAV</h1>
 
-          <div class="profit-grid">
-            <article class="card">
-              <span class="card-label">Pessoal s/ parceria</span>
-              <strong class="card-value" id="pessoal-sem-parceria">R$ 0</strong>
-            </article>
+<p class="subtitle">
+ORGANIZAÇÃO CRIMINAL
+</p>
 
-            <article class="card">
-              <span class="card-label">Balaclav</span>
-              <strong class="card-value" id="balaclav-sem-parceria">R$ 0</strong>
-            </article>
+<p class="motto">
+PODER • RESPEITO • CONTROLE
+</p>
 
-            <article class="card">
-              <span class="card-label">Pessoal c/ parceria</span>
-              <strong class="card-value" id="pessoal-com-parceria">R$ 0</strong>
-            </article>
+</header>
 
-            <article class="card">
-              <span class="card-label">Balaclav</span>
-              <strong class="card-value" id="balaclav-com-parceria">R$ 0</strong>
-            </article>
-          </div>
-        </section>
-      </div>
-    </section>
-  </main>
 
-  <script src="script.js"></script>
+<section class="calculator">
+
+<table>
+
+<thead>
+<tr>
+<th>TIPO</th>
+<th>PREÇO SEM PARCERIA</th>
+<th>PREÇO COM PARCERIA</th>
+<th>QTD</th>
+<th>TOTAL S/ PARCERIA</th>
+<th>TOTAL C/ PARCERIA</th>
+</tr>
+</thead>
+
+<tbody id="tabela"></tbody>
+
+</table>
+
+</section>
+
+
+<section class="totals">
+
+<div class="card">
+<h3>Total s/ parceria</h3>
+<p id="totalSem">R$ 0</p>
+</div>
+
+<div class="card">
+<h3>Total c/ parceria</h3>
+<p id="totalCom">R$ 0</p>
+</div>
+
+</section>
+
+
+<section class="profits">
+
+<h2>DIVISÃO DE LUCROS</h2>
+
+<div class="profit-grid">
+
+<div class="card">
+<h3>Pessoal (80%)</h3>
+<p id="pessoalSem">R$ 0</p>
+</div>
+
+<div class="card">
+<h3>Balaclav (20%)</h3>
+<p id="balaclavSem">R$ 0</p>
+</div>
+
+<div class="card">
+<h3>Pessoal c/ parceria</h3>
+<p id="pessoalCom">R$ 0</p>
+</div>
+
+<div class="card">
+<h3>Balaclav</h3>
+<p id="balaclavCom">R$ 0</p>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<p>ACESSO RESTRITO • SOMENTE MEMBROS</p>
+
+</footer>
+
+</div>
+
+<script src="script.js"></script>
+
 </body>
 </html>

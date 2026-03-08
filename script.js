@@ -1,74 +1,84 @@
 const produtos = [
-  { nome: "FAJUTA", cor: "Azul", classe: "azul", sem: 3000, com: 2500 },
-  { nome: "COMUM", cor: "Branco", classe: "branco", sem: 4000, com: 3500 },
-  { nome: "INCOMUM", cor: "Verde", classe: "verde", sem: 6000, com: 5500 },
-  { nome: "RARO", cor: "Vermelho", classe: "vermelho", sem: 13000, com: 12000 },
-  { nome: "ESPECIAL", cor: "Preto", classe: "preto", sem: 26000, com: 25000 },
-  { nome: "LUVA", cor: "", classe: "neutro", sem: 1300, com: 1200 },
-  { nome: "LIXA", cor: "", classe: "neutro", sem: 1200, com: 800 }
+
+{nome:"FAJUTA",cor:"Azul",classe:"azul",sem:3000,com:2500},
+{nome:"COMUM",cor:"Branco",classe:"branco",sem:4000,com:3500},
+{nome:"INCOMUM",cor:"Verde",classe:"verde",sem:6000,com:5500},
+{nome:"RARO",cor:"Vermelho",classe:"vermelho",sem:13000,com:12000},
+{nome:"ESPECIAL",cor:"Preto",classe:"preto",sem:26000,com:25000},
+{nome:"LUVA",classe:"preto",sem:1300,com:1200},
+{nome:"LIXA",classe:"preto",sem:1200,com:800}
+
 ];
 
-const tabela = document.getElementById("tabela");
+const tabela=document.getElementById("tabela");
 
-produtos.forEach((p, i) => {
-  const tr = document.createElement("tr");
+produtos.forEach((p,i)=>{
 
-  const nomeFormatado = p.cor
-    ? `
-      <span class="nome-produto">
-        <span class="dot ${p.classe}"></span>
-        <span>${p.nome}</span>
-        <span class="cor-texto">(${p.cor})</span>
-      </span>
-    `
-    : `
-      <span class="nome-produto">
-        <span class="dot ${p.classe}"></span>
-        <span>${p.nome}</span>
-      </span>
-    `;
+const tr=document.createElement("tr");
 
-  tr.innerHTML = `
-    <td>${nomeFormatado}</td>
-    <td>R$ ${p.sem.toLocaleString("pt-BR")}</td>
-    <td>R$ ${p.com.toLocaleString("pt-BR")}</td>
-    <td>
-      <input type="number" min="0" value="0" data-index="${i}">
-    </td>
-    <td id="sem${i}">R$ 0</td>
-    <td id="com${i}">R$ 0</td>
-  `;
+tr.innerHTML=`
 
-  tabela.appendChild(tr);
+<td>
+
+<div class="nome">
+
+<span class="usb ${p.classe}"></span>
+
+${p.nome} ${p.cor ? "(" + p.cor + ")" : ""}
+
+</div>
+
+</td>
+
+<td>R$ ${p.sem.toLocaleString()}</td>
+
+<td>R$ ${p.com.toLocaleString()}</td>
+
+<td>
+<input type="number" min="0" value="0" data-index="${i}">
+</td>
+
+<td id="sem${i}">R$ 0</td>
+<td id="com${i}">R$ 0</td>
+
+`;
+
+tabela.appendChild(tr);
+
 });
 
-document.addEventListener("input", calcular);
+document.addEventListener("input",calcular);
 
-function calcular() {
-  let totalSem = 0;
-  let totalCom = 0;
+function calcular(){
 
-  document.querySelectorAll("input").forEach((input) => {
-    const i = Number(input.dataset.index);
-    const qtd = parseInt(input.value, 10) || 0;
-    const produto = produtos[i];
+let totalSem=0;
+let totalCom=0;
 
-    const sem = qtd * produto.sem;
-    const com = qtd * produto.com;
+document.querySelectorAll("input").forEach(input=>{
 
-    document.getElementById("sem" + i).innerText = "R$ " + sem.toLocaleString("pt-BR");
-    document.getElementById("com" + i).innerText = "R$ " + com.toLocaleString("pt-BR");
+const i=input.dataset.index;
+const qtd=parseInt(input.value)||0;
 
-    totalSem += sem;
-    totalCom += com;
-  });
+const produto=produtos[i];
 
-  document.getElementById("totalSem").innerText = "R$ " + totalSem.toLocaleString("pt-BR");
-  document.getElementById("totalCom").innerText = "R$ " + totalCom.toLocaleString("pt-BR");
+const sem=qtd*produto.sem;
+const com=qtd*produto.com;
 
-  document.getElementById("pessoalSem").innerText = "R$ " + (totalSem * 0.8).toLocaleString("pt-BR");
-  document.getElementById("balaclavSem").innerText = "R$ " + (totalSem * 0.2).toLocaleString("pt-BR");
+document.getElementById("sem"+i).innerText="R$ "+sem.toLocaleString();
+document.getElementById("com"+i).innerText="R$ "+com.toLocaleString();
 
-  document.getElementById("pessoalCom").innerText = "R$ " + (totalCom * 0.8).toLocaleString("pt-BR");
-  document.getElementById("balaclavCom").innerText = "R$ " + (totalCom * 0.2).toLocaleString("pt-BR");
+totalSem+=sem;
+totalCom+=com;
+
+});
+
+document.getElementById("totalSem").innerText="R$ "+totalSem.toLocaleString();
+document.getElementById("totalCom").innerText="R$ "+totalCom.toLocaleString();
+
+document.getElementById("pessoalSem").innerText="R$ "+(totalSem*0.8).toLocaleString();
+document.getElementById("balaclavSem").innerText="R$ "+(totalSem*0.2).toLocaleString();
+
+document.getElementById("pessoalCom").innerText="R$ "+(totalCom*0.8).toLocaleString();
+document.getElementById("balaclavCom").innerText="R$ "+(totalCom*0.2).toLocaleString();
+
 }

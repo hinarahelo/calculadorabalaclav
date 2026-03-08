@@ -6,21 +6,25 @@ if (particlesRoot) {
 
   particlesRoot.appendChild(canvas);
 
-  const PARTICLE_COUNT = 90;
+  const DESKTOP_COUNT = 90;
+  const MOBILE_COUNT = 55;
   const particles = [];
   let animationId = null;
+  let resizeTimer = null;
+
+  function random(min, max) {
+    return Math.random() * (max - min) + min;
+  }
 
   function resizeCanvas() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
     canvas.width = Math.floor(window.innerWidth * dpr);
     canvas.height = Math.floor(window.innerHeight * dpr);
     canvas.style.width = `${window.innerWidth}px`;
     canvas.style.height = `${window.innerHeight}px`;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
 
-  function random(min, max) {
-    return Math.random() * (max - min) + min;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
   function createParticle() {
@@ -38,8 +42,8 @@ if (particlesRoot) {
 
   function createParticles() {
     particles.length = 0;
-    const isMobile = window.innerWidth < 768;
-    const total = isMobile ? 55 : PARTICLE_COUNT;
+
+    const total = window.innerWidth < 768 ? MOBILE_COUNT : DESKTOP_COUNT;
 
     for (let i = 0; i < total; i += 1) {
       particles.push(createParticle());
@@ -49,7 +53,6 @@ if (particlesRoot) {
   function updateParticle(particle) {
     particle.x += particle.speedX;
     particle.y += particle.speedY;
-
     particle.alpha += particle.alphaSpeed;
 
     if (particle.alpha >= 1 || particle.alpha <= 0.15) {
@@ -154,8 +157,6 @@ if (particlesRoot) {
 
     animate();
   }
-
-  let resizeTimer = null;
 
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);

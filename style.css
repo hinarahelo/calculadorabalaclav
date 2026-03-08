@@ -108,32 +108,6 @@ body {
   letter-spacing: 0.03em;
 }
 
-/* TYPES */
-
-.types-grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.type-card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-height: 58px;
-  padding: 12px;
-  border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  text-align: center;
-  font-weight: 700;
-}
-
-.type-card small {
-  color: var(--muted);
-}
-
 /* USB */
 
 .usb {
@@ -400,10 +374,6 @@ input[type="number"]:focus {
 }
 
 @media (max-width: 900px) {
-  .types-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .profits-grid {
     grid-template-columns: 1fr;
   }
@@ -428,13 +398,8 @@ input[type="number"]:focus {
     padding: 14px;
   }
 
-  .types-grid,
   .totals-grid {
     grid-template-columns: 1fr;
-  }
-
-  .type-card {
-    justify-content: flex-start;
   }
 
   .desktop-only {

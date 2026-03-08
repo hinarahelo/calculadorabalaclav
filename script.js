@@ -4,8 +4,8 @@ const produtos = [
   { nome: "INCOMUM", cor: "Verde", classe: "verde", sem: 6000, com: 5500 },
   { nome: "RARO", cor: "Vermelho", classe: "vermelho", sem: 13000, com: 12000 },
   { nome: "ESPECIAL", cor: "Preto", classe: "preto", sem: 26000, com: 25000 },
-  { nome: "LUVA", cor: "", classe: "", sem: 1300, com: 1200 },
-  { nome: "LIXA", cor: "", classe: "", sem: 1200, com: 800 }
+  { nome: "LUVA", cor: "", classe: "neutro", sem: 1300, com: 1200 },
+  { nome: "LIXA", cor: "", classe: "neutro", sem: 1200, com: 800 }
 ];
 
 const tabela = document.getElementById("tabela");
@@ -14,8 +14,19 @@ produtos.forEach((p, i) => {
   const tr = document.createElement("tr");
 
   const nomeFormatado = p.cor
-    ? `<span class="nome-produto ${p.classe}">${p.nome} <span class="cor">(${p.cor})</span></span>`
-    : `<span class="nome-produto">${p.nome}</span>`;
+    ? `
+      <span class="nome-produto">
+        <span class="dot ${p.classe}"></span>
+        <span>${p.nome}</span>
+        <span class="cor-texto">(${p.cor})</span>
+      </span>
+    `
+    : `
+      <span class="nome-produto">
+        <span class="dot ${p.classe}"></span>
+        <span>${p.nome}</span>
+      </span>
+    `;
 
   tr.innerHTML = `
     <td>${nomeFormatado}</td>

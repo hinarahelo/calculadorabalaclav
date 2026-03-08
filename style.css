@@ -101,6 +101,12 @@ body {
   letter-spacing: 0.04em;
 }
 
+.section-text {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
 /* TIPOS */
 
 .tipos-grid {
@@ -311,6 +317,13 @@ input[type="number"]:focus {
   gap: 16px;
 }
 
+.total-card {
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -343,8 +356,125 @@ input[type="number"]:focus {
   font-weight: 700;
 }
 
+/* LUCROS MELHORADOS */
+
 .lucros {
-  margin-top: 24px;
+  margin-top: 28px;
+}
+
+.lucro-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 16px;
+}
+
+.lucro-box {
+  background: linear-gradient(
+    180deg,
+    rgba(38, 0, 72, 0.82),
+    rgba(20, 0, 40, 0.7)
+  );
+  border: 1px solid var(--line-strong);
+  border-radius: 20px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.lucro-box-header {
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.lucro-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(168, 85, 247, 0.18);
+  color: var(--purple);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+
+.lucro-box-header h3 {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+}
+
+.lucro-box-header p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.lucro-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.lucro-card {
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.lucro-card.pessoal {
+  background: linear-gradient(
+    180deg,
+    rgba(34, 197, 94, 0.12),
+    rgba(255, 255, 255, 0.03)
+  );
+}
+
+.lucro-card.balaclav {
+  background: linear-gradient(
+    180deg,
+    rgba(168, 85, 247, 0.16),
+    rgba(255, 255, 255, 0.03)
+  );
+}
+
+.lucro-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.lucro-label h4 {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.lucro-percent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 52px;
+  min-height: 30px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--purple);
+  font-weight: 700;
+  font-size: 0.84rem;
+}
+
+.lucro-card p {
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 800;
+  line-height: 1.1;
 }
 
 /* FOOTER */
@@ -373,7 +503,8 @@ footer {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .grid {
+  .grid,
+  .lucro-layout {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -395,7 +526,8 @@ footer {
 
   .tipos-grid,
   .totais,
-  .grid {
+  .grid,
+  .lucro-layout {
     grid-template-columns: 1fr;
   }
 
@@ -417,11 +549,22 @@ footer {
     grid-template-columns: 1fr;
   }
 
-  .card {
+  .card,
+  .lucro-box,
+  .lucro-card {
     padding: 16px;
   }
 
   .card p {
     font-size: 1.4rem;
+  }
+
+  .lucro-label {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .lucro-percent {
+    min-width: unset;
   }
 }

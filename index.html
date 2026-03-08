@@ -2,42 +2,61 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="description" content="Calculadora Balaclav responsiva para celular e PC." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Calculadora Balaclav" />
   <title>Balaclav Calculadora</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="hero">
-    <div class="hero-inner">
-      <span class="hero-tag">ACESSO RESTRITO</span>
-      <h1 class="logo">BALACLAV</h1>
-      <p class="subtitle">ORGANIZAÇÃO CRIMINAL</p>
-      <p class="motto">PODER • RESPEITO • CONTROLE</p>
+    <div class="hero__content">
+      <span class="hero__tag">ACESSO RESTRITO</span>
+      <h1 class="hero__logo">BALACLAV</h1>
+      <p class="hero__subtitle">ORGANIZAÇÃO CRIMINAL</p>
+      <p class="hero__motto">PODER • RESPEITO • CONTROLE</p>
     </div>
   </header>
 
   <main class="page">
     <section class="panel">
-      <div class="section-head">
+      <div class="section-title">
         <h2>Tipos de pendrive</h2>
       </div>
 
       <div class="types-grid">
-        <div class="type-item"><span class="usb azul"></span><span>Fajuta <small>(Azul)</small></span></div>
-        <div class="type-item"><span class="usb branco"></span><span>Comum <small>(Branco)</small></span></div>
-        <div class="type-item"><span class="usb verde"></span><span>Incomum <small>(Verde)</small></span></div>
-        <div class="type-item"><span class="usb vermelho"></span><span>Raro <small>(Vermelho)</small></span></div>
-        <div class="type-item"><span class="usb preto"></span><span>Especial <small>(Preto)</small></span></div>
+        <div class="type-card">
+          <span class="usb azul"></span>
+          <span>Fajuta <small>(Azul)</small></span>
+        </div>
+
+        <div class="type-card">
+          <span class="usb branco"></span>
+          <span>Comum <small>(Branco)</small></span>
+        </div>
+
+        <div class="type-card">
+          <span class="usb verde"></span>
+          <span>Incomum <small>(Verde)</small></span>
+        </div>
+
+        <div class="type-card">
+          <span class="usb vermelho"></span>
+          <span>Raro <small>(Vermelho)</small></span>
+        </div>
+
+        <div class="type-card">
+          <span class="usb preto"></span>
+          <span>Especial <small>(Preto)</small></span>
+        </div>
       </div>
     </section>
 
     <section class="panel">
-      <div class="section-head">
+      <div class="section-title">
         <h2>Tabela de preços</h2>
       </div>
 
-      <div class="table-wrap desktop-only">
+      <div class="table-wrapper desktop-only">
         <table>
           <thead>
             <tr>
@@ -49,78 +68,74 @@
               <th>Total c/ parceria</th>
             </tr>
           </thead>
-          <tbody id="tabelaDesktop"></tbody>
+          <tbody id="desktopTableBody"></tbody>
         </table>
       </div>
 
-      <div class="mobile-list mobile-only" id="tabelaMobile"></div>
+      <div class="mobile-list mobile-only" id="mobileList"></div>
     </section>
 
-    <section class="summary-grid">
-      <article class="panel stat-card">
+    <section class="totals-grid">
+      <article class="panel total-card">
         <h3>Total sem parceria</h3>
         <p id="totalSem">R$ 0</p>
       </article>
 
-      <article class="panel stat-card">
+      <article class="panel total-card">
         <h3>Total com parceria</h3>
         <p id="totalCom">R$ 0</p>
       </article>
     </section>
 
     <section class="panel">
-      <div class="section-head">
+      <div class="section-title">
         <h2>Lucros</h2>
       </div>
 
       <div class="profits-grid">
         <article class="profit-box">
-          <div class="profit-title">
-            <span class="chip">SEM PARCERIA</span>
+          <div class="profit-box__header">
+            <span class="profit-chip">SEM PARCERIA</span>
             <h3>Divisão da venda</h3>
           </div>
 
-          <div class="profit-lines">
-            <div class="profit-line">
-              <div>
-                <strong>Pessoal</strong>
-                <small>80%</small>
-              </div>
-              <p id="pessoalSem">R$ 0</p>
+          <div class="profit-line">
+            <div>
+              <strong>Pessoal</strong>
+              <small>80%</small>
             </div>
+            <p id="pessoalSem">R$ 0</p>
+          </div>
 
-            <div class="profit-line">
-              <div>
-                <strong>Balaclav</strong>
-                <small>20%</small>
-              </div>
-              <p id="balaclavSem">R$ 0</p>
+          <div class="profit-line">
+            <div>
+              <strong>Balaclav</strong>
+              <small>20%</small>
             </div>
+            <p id="balaclavSem">R$ 0</p>
           </div>
         </article>
 
         <article class="profit-box">
-          <div class="profit-title">
-            <span class="chip">COM PARCERIA</span>
+          <div class="profit-box__header">
+            <span class="profit-chip">COM PARCERIA</span>
             <h3>Divisão da venda</h3>
           </div>
 
-          <div class="profit-lines">
-            <div class="profit-line">
-              <div>
-                <strong>Pessoal</strong>
-                <small>80%</small>
-              </div>
-              <p id="pessoalCom">R$ 0</p>
+          <div class="profit-line">
+            <div>
+              <strong>Pessoal</strong>
+              <small>80%</small>
             </div>
+            <p id="pessoalCom">R$ 0</p>
+          </div>
 
-            <div class="profit-line">
-              <div>
-                <strong>Balaclav</strong>
-                <small>20%</small>
-              </div>
-              <p id="balaclavCom">R$ 0</p>
+          <div class="profit-line">
+            <div>
+              <strong>Balaclav</strong>
+              <small>20%</small>
             </div>
+            <p id="balaclavCom">R$ 0</p>
           </div>
         </article>
       </div>

@@ -2,76 +2,51 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  />
-  <meta
-    name="description"
-    content="Calculadora Balaclav com layout responsivo para celular e PC."
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Calculadora Balaclav responsiva para celular e PC." />
   <title>Balaclav Calculadora</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="hero">
     <div class="hero-inner">
-      <p class="hero-tag">ACESSO RESTRITO</p>
+      <span class="hero-tag">ACESSO RESTRITO</span>
       <h1 class="logo">BALACLAV</h1>
       <p class="subtitle">ORGANIZAÇÃO CRIMINAL</p>
       <p class="motto">PODER • RESPEITO • CONTROLE</p>
     </div>
   </header>
 
-  <section class="tipos">
-    <div class="section-header">
-      <h2>TIPOS DE PENDRIVE</h2>
-    </div>
-
-    <div class="tipos-grid">
-      <div class="tipo">
-        <span class="usb azul"></span>
-        <span>Fajuta (Azul)</span>
+  <main class="page">
+    <section class="panel">
+      <div class="section-head">
+        <h2>Tipos de pendrive</h2>
       </div>
 
-      <div class="tipo">
-        <span class="usb branco"></span>
-        <span>Comum (Branco)</span>
+      <div class="types-grid">
+        <div class="type-item"><span class="usb azul"></span><span>Fajuta <small>(Azul)</small></span></div>
+        <div class="type-item"><span class="usb branco"></span><span>Comum <small>(Branco)</small></span></div>
+        <div class="type-item"><span class="usb verde"></span><span>Incomum <small>(Verde)</small></span></div>
+        <div class="type-item"><span class="usb vermelho"></span><span>Raro <small>(Vermelho)</small></span></div>
+        <div class="type-item"><span class="usb preto"></span><span>Especial <small>(Preto)</small></span></div>
       </div>
+    </section>
 
-      <div class="tipo">
-        <span class="usb verde"></span>
-        <span>Incomum (Verde)</span>
-      </div>
-
-      <div class="tipo">
-        <span class="usb vermelho"></span>
-        <span>Raro (Vermelho)</span>
-      </div>
-
-      <div class="tipo">
-        <span class="usb preto"></span>
-        <span>Especial (Preto)</span>
-      </div>
-    </div>
-  </section>
-
-  <main class="container">
-    <section class="calculator-section">
-      <div class="section-header">
-        <h2>TABELA DE PREÇOS</h2>
+    <section class="panel">
+      <div class="section-head">
+        <h2>Tabela de preços</h2>
       </div>
 
       <div class="table-wrap desktop-only">
         <table>
           <thead>
             <tr>
-              <th>TIPO</th>
-              <th>PREÇO S/ PARCERIA</th>
-              <th>PREÇO C/ PARCERIA</th>
-              <th>QTD</th>
-              <th>TOTAL S/ PARCERIA</th>
-              <th>TOTAL C/ PARCERIA</th>
+              <th>Tipo</th>
+              <th>Preço s/ parceria</th>
+              <th>Preço c/ parceria</th>
+              <th>Qtd</th>
+              <th>Total s/ parceria</th>
+              <th>Total c/ parceria</th>
             </tr>
           </thead>
           <tbody id="tabelaDesktop"></tbody>
@@ -81,73 +56,68 @@
       <div class="mobile-list mobile-only" id="tabelaMobile"></div>
     </section>
 
-    <section class="totais">
-      <div class="card destaque total-card">
-        <h3>Total da venda sem parceria</h3>
+    <section class="summary-grid">
+      <article class="panel stat-card">
+        <h3>Total sem parceria</h3>
         <p id="totalSem">R$ 0</p>
-      </div>
+      </article>
 
-      <div class="card destaque total-card">
-        <h3>Total da venda com parceria</h3>
+      <article class="panel stat-card">
+        <h3>Total com parceria</h3>
         <p id="totalCom">R$ 0</p>
-      </div>
+      </article>
     </section>
 
-    <section class="lucros">
-      <div class="section-header">
-        <h2>LUCROS</h2>
-        <p class="section-text">
-          Veja abaixo quanto fica para cada lado em cada tipo de venda.
-        </p>
+    <section class="panel">
+      <div class="section-head">
+        <h2>Lucros</h2>
       </div>
 
-      <div class="lucro-layout">
-        <article class="lucro-box">
-          <div class="lucro-box-header">
-            <span class="lucro-chip">SEM PARCERIA</span>
-            <h3>Divisão da venda sem parceria</h3>
-            <p>Baseado no total sem parceria calculado acima.</p>
+      <div class="profits-grid">
+        <article class="profit-box">
+          <div class="profit-title">
+            <span class="chip">SEM PARCERIA</span>
+            <h3>Divisão da venda</h3>
           </div>
 
-          <div class="lucro-cards">
-            <div class="lucro-card pessoal">
-              <div class="lucro-label">
-                <span class="lucro-percent">80%</span>
-                <h4>Pessoal</h4>
+          <div class="profit-lines">
+            <div class="profit-line">
+              <div>
+                <strong>Pessoal</strong>
+                <small>80%</small>
               </div>
               <p id="pessoalSem">R$ 0</p>
             </div>
 
-            <div class="lucro-card balaclav">
-              <div class="lucro-label">
-                <span class="lucro-percent">20%</span>
-                <h4>Balaclav</h4>
+            <div class="profit-line">
+              <div>
+                <strong>Balaclav</strong>
+                <small>20%</small>
               </div>
               <p id="balaclavSem">R$ 0</p>
             </div>
           </div>
         </article>
 
-        <article class="lucro-box">
-          <div class="lucro-box-header">
-            <span class="lucro-chip">COM PARCERIA</span>
-            <h3>Divisão da venda com parceria</h3>
-            <p>Baseado no total com parceria calculado acima.</p>
+        <article class="profit-box">
+          <div class="profit-title">
+            <span class="chip">COM PARCERIA</span>
+            <h3>Divisão da venda</h3>
           </div>
 
-          <div class="lucro-cards">
-            <div class="lucro-card pessoal">
-              <div class="lucro-label">
-                <span class="lucro-percent">80%</span>
-                <h4>Pessoal</h4>
+          <div class="profit-lines">
+            <div class="profit-line">
+              <div>
+                <strong>Pessoal</strong>
+                <small>80%</small>
               </div>
               <p id="pessoalCom">R$ 0</p>
             </div>
 
-            <div class="lucro-card balaclav">
-              <div class="lucro-label">
-                <span class="lucro-percent">20%</span>
-                <h4>Balaclav</h4>
+            <div class="profit-line">
+              <div>
+                <strong>Balaclav</strong>
+                <small>20%</small>
               </div>
               <p id="balaclavCom">R$ 0</p>
             </div>
@@ -157,7 +127,7 @@
     </section>
   </main>
 
-  <footer>
+  <footer class="footer">
     <p>ACESSO RESTRITO • SOMENTE MEMBROS</p>
   </footer>
 

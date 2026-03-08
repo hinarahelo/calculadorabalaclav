@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Calculadora Penal Oasis</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<h1>⚖️ Calculadora Penal</h1>
+
+<div class="container">
+
+<select id="crime">
+<option value="">Selecione o crime</option>
+</select>
+
+<button onclick="adicionarCrime()">Adicionar</button>
+
+</div>
+
+<h2>Crimes adicionados</h2>
+
+<ul id="lista"></ul>
+
+<h2>Total da pena</h2>
+
+<div id="total">0 meses</div>
+
+<div class="botoes">
+
+<button onclick="aplicarAtenuante()">Aplicar Atenuante (-40%)</button>
+
+<button onclick="limpar()">Limpar</button>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
